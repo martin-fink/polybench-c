@@ -60,10 +60,9 @@ print FILE << "EOF";
 include $configFile
 
 EXTRA_FLAGS=$extra_flags{$kernel}
-WASM_FLAGS=--target=wasm64-unknown-wasi --sysroot /scratch/martin/src/wasm/wasi-libc/sysroot -g -march=wasm64-wasi+mem-safety -fsanitize=wasm-memsafety
 
 $kernel: $kernel.c $kernel.h
-	\${VERBOSE} \${CC} -o $kernel.wasm $kernel.c \${CFLAGS} -I. -I$utilityDir $utilityDir/polybench.c \${EXTRA_FLAGS} \${WASM_FLAGS}
+	\${VERBOSE} \${CC} -o $kernel.wasm $kernel.c \${CFLAGS} -I. -I$utilityDir $utilityDir/polybench.c \${EXTRA_FLAGS}
 
 clean:
 	@ rm -f $kernel.wasm
@@ -81,8 +80,9 @@ if ($GEN_CONFIG) {
 open FILE, '>'.$TARGET_DIR.'/config.mk';
 
 print FILE << "EOF";
-CC=/scratch/martin/src/wasm/llvm-project/build/bin/clang
-CFLAGS=-O2 -DPOLYBENCH_DUMP_ARRAYS -DPOLYBENCH_USE_C99_PROTO
+CC=clang
+WASM_FLAGS=--target=wasm64-unknown-wasi --sysroot /scratch/martin/src/wasm/wasi-libc/sysroot -g -march=wasm64-wasi+mem-safety -fsanitize=wasm-memsafety -D_WASI_EMULATED_PROCESS_CLOCKS -lwasi-emulated-process-clocks /scratch/martin/src/wasm/llvm-project/wasm_memsafety_rtlib.c
+CFLAGS=-O2 -DPOLYBENCH_DUMP_ARRAYS -DPOLYBENCH_USE_C99_PROTO \${WASM_FLAGS}
 EOF
 
 close FILE;
