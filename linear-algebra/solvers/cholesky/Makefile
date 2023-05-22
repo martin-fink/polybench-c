@@ -3,6 +3,7 @@ include ../../../config.mk
 EXTRA_FLAGS=-lm
 
 cholesky: cholesky.c cholesky.h
+	${VERBOSE} ${CC} -o cholesky-san.wasm cholesky.c ${CFLAGS} -I. -I../../../utilities ../../../utilities/polybench.c ${EXTRA_FLAGS} ${SAN_FLAGS}
 	${VERBOSE} ${CC} -o cholesky.wasm cholesky.c ${CFLAGS} -I. -I../../../utilities ../../../utilities/polybench.c ${EXTRA_FLAGS}
 
 clean:

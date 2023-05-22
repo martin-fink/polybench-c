@@ -3,6 +3,7 @@ include ../../../config.mk
 EXTRA_FLAGS=
 
 trmm: trmm.c trmm.h
+	${VERBOSE} ${CC} -o trmm-san.wasm trmm.c ${CFLAGS} -I. -I../../../utilities ../../../utilities/polybench.c ${EXTRA_FLAGS} ${SAN_FLAGS}
 	${VERBOSE} ${CC} -o trmm.wasm trmm.c ${CFLAGS} -I. -I../../../utilities ../../../utilities/polybench.c ${EXTRA_FLAGS}
 
 clean:
