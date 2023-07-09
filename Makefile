@@ -5,11 +5,18 @@ SUBCLEAN = $(addsuffix .clean,$(SUBDIRS))
 
 .PHONY: all $(SUBDIRS) clean $(SUBCLEAN)
 
-all: $(SUBDIRS)
+all: $(SUBDIRS) dist
 $(SUBDIRS):
 	$(MAKE) -C $@
 
+dist: $(SUBDIRS)
+	mkdir build
+	find -name '*.wasm' | xargs -I '{}' cp '{}' build/
+
+
 clean: $(SUBCLEAN)
+	rm -rf build
+
 $(SUBCLEAN): %.clean:
 	$(MAKE) -C $* clean
 
