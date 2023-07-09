@@ -1,3 +1,15 @@
+Building for WASM:
+
+```shell
+make -j128 (or how many cpus you have)
+```
+
+Then copy the `build` dir to QEMU and run
+
+```shell
+for i in *.wasm; do ../wasmtime compile $i --cranelift-enable use_mte --wasm-features=memory64,mem-safety; done
+```
+
 * * * * * * * * * * * * * * *
 * PolyBench/C 4.2.1 (beta)  *
 * * * * * * * * * * * * * * *
