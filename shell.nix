@@ -11,7 +11,7 @@ let
       dontUnpack = true;
       installPhase = ''
         mkdir -p $out/bin
-        for bin in ${toString (builtins.attrNames (builtins.readDir /scratch/martin/src/wasm/llvm-project/build/bin))}; do
+        for bin in ${toString (builtins.attrNames (builtins.readDir ../llvm-project/build/bin))}; do
           cat > $out/bin/$bin <<EOF
         #!${runtimeShell}
         exec "${clangPath}/bin/$bin" "\$@"
