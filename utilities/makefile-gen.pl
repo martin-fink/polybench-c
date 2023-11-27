@@ -62,8 +62,8 @@ include $configFile
 EXTRA_FLAGS=$extra_flags{$kernel}
 
 $kernel: $kernel.c $kernel.h
-	\${VERBOSE} \${CC} -o $kernel-san.wasm $kernel.c \${CFLAGS} -I. -I$utilityDir $utilityDir/polybench.c \${EXTRA_FLAGS} \${SAN_FLAGS}
-	\${VERBOSE} \${CC} -o $kernel.wasm $kernel.c \${CFLAGS} -I. -I$utilityDir $utilityDir/polybench.c \${EXTRA_FLAGS}
+	\${VERBOSE} \${CC} -o $kernel-san.wasm $kernel.c \${CFLAGS} -I. -I$utilityDir $utilityDir/polybench.c \${EXTRA_FLAGS} \${SAN_FLAGS} --sysroot $polybenchRoot/wasi-sdk/wasm64+memsafe/wasi-sysroot
+	\${VERBOSE} \${CC} -o $kernel.wasm $kernel.c \${CFLAGS} -I. -I$utilityDir $utilityDir/polybench.c \${EXTRA_FLAGS} --sysroot $polybenchRoot/wasi-sdk/wasm64/wasi-sysroot/
 
 clean:
 	@ rm -f $kernel.wasm
@@ -82,7 +82,7 @@ open FILE, '>'.$TARGET_DIR.'/config.mk';
 
 print FILE << "EOF";
 CC=clang
-WASM_FLAGS=--target=wasm64-unknown-wasi --sysroot \$(PWD)/../wasi-libc/sysroot -g -D_WASI_EMULATED_PROCESS_CLOCKS -lwasi-emulated-process-clocks \$(PWD)/../llvm-project/wasm_memsafety_rtlib.c
+WASM_FLAGS=--target=wasm64-unknown-wasi -g -D_WASI_EMULATED_PROCESS_CLOCKS -lwasi-emulated-process-clocks
 SAN_FLAGS=-mmem-safety -fsanitize=wasm-memsafety
 CFLAGS=-O2 -DPOLYBENCH_DUMP_ARRAYS -DPOLYBENCH_USE_C99_PROTO \${WASM_FLAGS}
 EOF
