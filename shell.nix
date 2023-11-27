@@ -26,16 +26,16 @@ in
 (aarch64.buildPackages.overrideCC aarch64.stdenv myclang).mkDerivation {
   name = "env";
   packages = [ myPython ];
-  nativeBuildInputs = [  ]; #aarch64.linux.nativeBuildInputs;
+  nativeBuildInputs = [ ];
   depsBuildBuild = [
     aarch64.buildPackages.stdenv.cc
     aarch64.buildPackages.ncurses
     myPython
   ];
-  #NIX_CFLAGS_COMPILE = "-isystem ${clangPath}/build/tools/clang/lib/Headers";
   NIX_LDFLAGS = "-L${aarch64.buildPackages.targetPackages.llvmPackages_13.libraries.libcxxabi}/lib";
   hardeningDisable = [ "all" ];
   buildInputs = [ pkgs.zlib ];
   PATH_TO_CLANG = "${myclang.cc}/bin/clang";
   PATH_TO_CLANGD = "${myclang.cc}/bin/clangd";
 }
+

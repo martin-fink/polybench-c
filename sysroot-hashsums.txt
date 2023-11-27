@@ -1,3 +1,4 @@
 5659a8ec6b313f36462b48fd01a49462f9a0e451375ead281a26b207906fd0e3  wasi-sdk/wasm64+memsafe/sysroot.tar.gz
 2ba19ff2928c79cce6b90441c056c7c3d20f94b6fdb27edecba8a6615f0fbdd3  wasi-sdk/wasm64/sysroot.tar.gz
+80e95a591ee91b693375576308a3eba0054af7318afdb19e1f00b6efacad58fa  wasi-sdk/wasm32/sysroot.tar.gz
 
