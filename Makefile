@@ -13,7 +13,7 @@ wasi-sdk:
 	mkdir -p wasi-sdk/{wasm32,wasm64,wasm64+memsafe}
 	curl -L https://github.com/martin-fink/wasi-sdk/releases/download/wasi-sdk-20%2Bmemory64/wasi-sysroot-20.31gf7dda3d5f5fe.tar.gz -o wasi-sdk/wasm64/sysroot.tar.gz
 	tar -xzf wasi-sdk/wasm64/sysroot.tar.gz -C wasi-sdk/wasm64/
-	curl -L https://github.com/martin-fink/wasi-sdk/releases/download/wasi-sdk-20%2Bmemory64%2Bmemsafety/wasi-sysroot-20.37g72b6187f9188.tar.gz -o wasi-sdk/wasm64+memsafe/sysroot.tar.gz
+	curl -L https://github.com/martin-fink/wasi-sdk/releases/download/wasi-sdk-20%2Bmemory64%2Bmemsafety/wasi-sysroot-20.39gcbab53afb4b2.tar.gz -o wasi-sdk/wasm64+memsafe/sysroot.tar.gz
 	tar -xzf wasi-sdk/wasm64+memsafe/sysroot.tar.gz -C wasi-sdk/wasm64+memsafe/
 	curl -L https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-20/wasi-sysroot-20.0.tar.gz -o wasi-sdk/wasm32/sysroot.tar.gz
 	tar -xzf wasi-sdk/wasm32/sysroot.tar.gz -C wasi-sdk/wasm32/
