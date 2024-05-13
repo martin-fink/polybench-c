@@ -64,6 +64,7 @@ EXTRA_FLAGS=$extra_flags{$kernel}
 $kernel: $kernel.c $kernel.h
 	\${VERBOSE} \${CC} -o $kernel-san.wasm $kernel.c --target=wasm64-unknown-wasi \${CFLAGS} -I. -I$utilityDir $utilityDir/polybench.c \${EXTRA_FLAGS} \${SAN_FLAGS} --sysroot $polybenchRoot/wasi-sdk/wasm64+memsafe/wasi-sysroot
 	\${VERBOSE} \${CC} -o $kernel.wasm $kernel.c --target=wasm64-unknown-wasi \${CFLAGS} -I. -I$utilityDir $utilityDir/polybench.c \${EXTRA_FLAGS} --sysroot $polybenchRoot/wasi-sdk/wasm64/wasi-sysroot/
+	\${VERBOSE} \${CC} -o $kernel-ptr-auth.wasm $kernel.c --target=wasm64-unknown-wasi \${CFLAGS} -I. -I$utilityDir $utilityDir/polybench.c \${EXTRA_FLAGS} \${PTR_AUTH_FLAGS} --sysroot $polybenchRoot/wasi-sdk/wasm64+mem-safety/wasi-sysroot/
 	\${VERBOSE} \${CC} -o $kernel-wasm32.wasm $kernel.c --target=wasm32-unknown-wasi \${CFLAGS} -I. -I$utilityDir $utilityDir/polybench.c \${EXTRA_FLAGS} --sysroot $polybenchRoot/wasi-sdk/wasm32/wasi-sysroot/
 
 clean:
@@ -85,6 +86,7 @@ print FILE << "EOF";
 CC=clang
 WASM_FLAGS=-g -D_WASI_EMULATED_PROCESS_CLOCKS -lwasi-emulated-process-clocks
 SAN_FLAGS=-mmem-safety -fsanitize=wasm-memsafety
+PTR_AUTH_FLAGS=-mmem-safety -fsanitize=wasm-ptr-auth
 CFLAGS=-O2 -DPOLYBENCH_DUMP_ARRAYS -DPOLYBENCH_USE_C99_PROTO \${WASM_FLAGS}
 EOF
 
