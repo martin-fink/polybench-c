@@ -21,11 +21,11 @@ alloca-repeated: alloca-repeated.c
 	${VERBOSE} ${CC} -o alloca-repeated.wasm alloca-repeated.c --target=wasm64-unknown-wasi ${CFLAGS} ${EXTRA_FLAGS} --sysroot ..//wasi-sdk/wasm64/wasi-sysroot/
 
 virt-fn-calls: virt-fn-calls.cpp
-	${VERBOSE} ${CXX} -fno-exceptions -o virt-fn-calls-san.wasm virt-fn-calls.cpp --target=wasm64-unknown-wasi ${CFLAGS} -I. ${EXTRA_FLAGS} ${SAN_FLAGS} --sysroot ../../..//wasi-sdk/wasm64+memsafe/wasi-sysroot
-	${VERBOSE} ${CXX} -fno-exceptions -o virt-fn-calls.wasm virt-fn-calls.cpp --target=wasm64-unknown-wasi ${CFLAGS} -I. ${EXTRA_FLAGS} --sysroot ../../..//wasi-sdk/wasm64/wasi-sysroot/
-	${VERBOSE} ${CXX} -fno-exceptions -o virt-fn-calls-wasm32.wasm virt-fn-calls.cpp --target=wasm32-unknown-wasi ${CFLAGS} -I. ${EXTRA_FLAGS} --sysroot ../../..//wasi-sdk/wasm32/wasi-sysroot/
-	${VERBOSE} ${CXX} -fno-exceptions -o virt-fn-calls-ptr-auth.wasm virt-fn-calls.cpp --target=wasm64-unknown-wasi ${CFLAGS} -I. ${EXTRA_FLAGS} --sysroot ../../..//wasi-sdk/wasm64+ptr-auth/wasi-sysroot/
-	#${VERBOSE} ${CXX} -fno-exceptions -o virt-fn-calls-all.wasm virt-fn-calls.cpp --target=wasm64-unknown-wasi ${CFLAGS} -I. ${EXTRA_FLAGS} --sysroot ../../..//wasi-sdk/wasm64+memsafe+ptr-auth/wasi-sysroot/
+	${VERBOSE} ${CXX} -fno-exceptions -o virt-fn-calls-san.wasm virt-fn-calls.cpp --target=wasm64-unknown-wasi ${CFLAGS} -I. ${EXTRA_FLAGS} ${SAN_FLAGS} --sysroot ..//wasi-sdk/wasm64+memsafe/wasi-sysroot
+	${VERBOSE} ${CXX} -fno-exceptions -o virt-fn-calls.wasm virt-fn-calls.cpp --target=wasm64-unknown-wasi ${CFLAGS} -I. ${EXTRA_FLAGS} --sysroot ..//wasi-sdk/wasm64/wasi-sysroot/
+	${VERBOSE} ${CXX} -fno-exceptions -o virt-fn-calls-wasm32.wasm virt-fn-calls.cpp --target=wasm32-unknown-wasi ${CFLAGS} -I. ${EXTRA_FLAGS} --sysroot ..//wasi-sdk/wasm32/wasi-sysroot/
+	${VERBOSE} ${CXX} -fno-exceptions -o virt-fn-calls-ptr-auth.wasm virt-fn-calls.cpp --target=wasm64-unknown-wasi ${CFLAGS} -I. ${EXTRA_FLAGS} --sysroot ..//wasi-sdk/wasm64+ptr-auth/wasi-sysroot/
+	#${VERBOSE} ${CXX} -fno-exceptions -o virt-fn-calls-all.wasm virt-fn-calls.cpp --target=wasm64-unknown-wasi ${CFLAGS} -I. ${EXTRA_FLAGS} --sysroot ..//wasi-sdk/wasm64+memsafe+ptr-auth/wasi-sysroot/
 
 clean:
 	@ rm -f *.wasm 
