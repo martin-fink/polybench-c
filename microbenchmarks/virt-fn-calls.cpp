@@ -2,6 +2,12 @@
 #include <cmath>
 #include <iomanip>
 
+extern "C" {
+unsigned long __cxa_allocate_exception(unsigned long) { abort(); }
+
+void __cxa_throw(unsigned long, unsigned long, unsigned long) { abort(); }
+}
+
 const int NI = 512;
 const int NJ = 512;
 const int NK = 512;
@@ -13,6 +19,7 @@ typedef double DATA_TYPE;
 class Base {
 public:
     virtual ~Base() {}
+
     virtual DATA_TYPE compute(DATA_TYPE x, DATA_TYPE y) = 0;
 //    DATA_TYPE compute(DATA_TYPE x, DATA_TYPE y) {
 //        return std::sin(x + y);
@@ -27,7 +34,8 @@ public:
     }
 };
 
-void run_kernel(DATA_TYPE alpha, DATA_TYPE beta, Base &op, DATA_TYPE** A, DATA_TYPE** B, DATA_TYPE** C, DATA_TYPE** D, DATA_TYPE** tmp, int ni, int nj, int nk, int nl) {
+void run_kernel(DATA_TYPE alpha, DATA_TYPE beta, Base &op, DATA_TYPE **A, DATA_TYPE **B, DATA_TYPE **C, DATA_TYPE **D,
+                DATA_TYPE **tmp, int ni, int nj, int nk, int nl) {
     for (int i = 0; i < ni; i++) {
         for (int j = 0; j < nj; j++) {
             tmp[i][j] = 0.0;
@@ -47,25 +55,25 @@ void run_kernel(DATA_TYPE alpha, DATA_TYPE beta, Base &op, DATA_TYPE** A, DATA_T
     }
 }
 
-void init_array(DATA_TYPE** A, DATA_TYPE** B, DATA_TYPE** C, DATA_TYPE** D, int ni, int nj, int nk, int nl) {
+void init_array(DATA_TYPE **A, DATA_TYPE **B, DATA_TYPE **C, DATA_TYPE **D, int ni, int nj, int nk, int nl) {
     for (int i = 0; i < ni; i++)
         for (int j = 0; j < nk; j++)
-            A[i][j] = ((DATA_TYPE)i * j) / ni;
+            A[i][j] = ((DATA_TYPE) i * j) / ni;
 
     for (int i = 0; i < nk; i++)
         for (int j = 0; j < nj; j++)
-            B[i][j] = ((DATA_TYPE)i + j) / nj;
+            B[i][j] = ((DATA_TYPE) i + j) / nj;
 
     for (int i = 0; i < nj; i++)
         for (int j = 0; j < nl; j++)
-            C[i][j] = ((DATA_TYPE)i - j) / nl;
+            C[i][j] = ((DATA_TYPE) i - j) / nl;
 
     for (int i = 0; i < ni; i++)
         for (int j = 0; j < nl; j++)
-            D[i][j] = ((DATA_TYPE)i * j) / nl;
+            D[i][j] = ((DATA_TYPE) i * j) / nl;
 }
 
-void print_array(DATA_TYPE** D, int ni, int nl) {
+void print_array(DATA_TYPE **D, int ni, int nl) {
     std::cout << std::fixed << std::setprecision(2);
     for (int i = 0; i < ni; i++) {
         for (int j = 0; j < nl; j++) {
@@ -78,7 +86,7 @@ void print_array(DATA_TYPE** D, int ni, int nl) {
 
 int main() {
     DATA_TYPE alpha = 1.5, beta = 1.2;
-    DATA_TYPE **A = new DATA_TYPE*[NI], **B = new DATA_TYPE*[NK], **C = new DATA_TYPE*[NJ], **D = new DATA_TYPE*[NI], **tmp = new DATA_TYPE*[NI];
+    DATA_TYPE **A = new DATA_TYPE *[NI], **B = new DATA_TYPE *[NK], **C = new DATA_TYPE *[NJ], **D = new DATA_TYPE *[NI], **tmp = new DATA_TYPE *[NI];
 
     for (int i = 0; i < NI; ++i) {
         A[i] = new DATA_TYPE[NK];
