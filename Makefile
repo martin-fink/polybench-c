@@ -10,7 +10,7 @@ $(SUBDIRS): wasi-sdk
 	$(MAKE) -C $@
 
 wasi-sdk:
-	mkdir -p wasi-sdk/{wasm32,wasm64,wasm64{+memsafe,+ptr-auth}}
+	mkdir -p wasi-sdk/{wasm32,wasm64,wasm64{+memsafe,+ptr-auth,+memsafe+ptr-auth}}
 	curl -L https://github.com/martin-fink/wasi-sdk/releases/download/wasi-sdk-20%2Bmemory64/wasi-sysroot-20.31gf7dda3d5f5fe.tar.gz -o wasi-sdk/wasm64/sysroot.tar.gz
 	tar -xzf wasi-sdk/wasm64/sysroot.tar.gz -C wasi-sdk/wasm64/
 	curl -L https://github.com/martin-fink/wasi-sdk/releases/download/wasi-sdk-20%2Bmemory64%2Bmemsafety/wasi-sysroot-20.39gcbab53afb4b2.tar.gz -o wasi-sdk/wasm64+memsafe/sysroot.tar.gz
@@ -19,6 +19,8 @@ wasi-sdk:
 	tar -xzf wasi-sdk/wasm32/sysroot.tar.gz -C wasi-sdk/wasm32/
 	curl -L https://github.com/martin-fink/wasi-sdk/releases/download/wasi-sdk-20%2Bmemory64%2Bptr-auth/wasi-sysroot-20.41gc1d2bfaea44c.tar.gz -o wasi-sdk/wasm64+ptr-auth/sysroot.tar.gz
 	tar -xzf wasi-sdk/wasm64+ptr-auth/sysroot.tar.gz -C wasi-sdk/wasm64+ptr-auth/
+	curl -L https://github.com/martin-fink/wasi-sdk/releases/download/wasi-sdk-20%2Bmemory64%2Bmemsafety%2Bptr-auth/wasi-sysroot-20.42g8f6201a998d6.tar.gz -o wasi-sdk/wasm64+memsafe+ptr-auth/sysroot.tar.gz
+	tar -xzf wasi-sdk/wasm64+memsafe+ptr-auth/sysroot.tar.gz -C wasi-sdk/wasm64+memsafe+ptr-auth
 	sha256sum -c sysroot-hashsums.txt
 
 dist: $(SUBDIRS)
