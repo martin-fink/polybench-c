@@ -2,7 +2,7 @@ include ../config.mk
 
 EXTRA_FLAGS=
 
-all: malloc-large malloc-small virt-fn-calls
+all: virt-fn-calls static-fn-calls
 
 #malloc-large: malloc-large.c
 #	${VERBOSE} ${CC} -o malloc-large-san.wasm malloc-large.c --target=wasm64-unknown-wasi ${CFLAGS} ${EXTRA_FLAGS} ${SAN_FLAGS} --sysroot ..//wasi-sdk/wasm64+memsafe/wasi-sysroot
@@ -19,6 +19,13 @@ all: malloc-large malloc-small virt-fn-calls
 #alloca-repeated: alloca-repeated.c
 #	${VERBOSE} ${CC} -o alloca-repeated-san.wasm alloca-repeated.c --target=wasm64-unknown-wasi ${CFLAGS} ${EXTRA_FLAGS} ${SAN_FLAGS} --sysroot ..//wasi-sdk/wasm64+memsafe/wasi-sysroot
 #	${VERBOSE} ${CC} -o alloca-repeated.wasm alloca-repeated.c --target=wasm64-unknown-wasi ${CFLAGS} ${EXTRA_FLAGS} --sysroot ..//wasi-sdk/wasm64/wasi-sysroot/
+
+static-fn-calls: static-fn-calls.cpp
+	${VERBOSE} ${CXX} -fno-exceptions -o static-fn-calls-san.wasm static-fn-calls.cpp --target=wasm64-unknown-wasi ${CFLAGS} -I. ${EXTRA_FLAGS} ${SAN_FLAGS} --sysroot ..//wasi-sdk/wasm64+memsafe/wasi-sysroot
+	${VERBOSE} ${CXX} -fno-exceptions -o static-fn-calls.wasm static-fn-calls.cpp --target=wasm64-unknown-wasi ${CFLAGS} -I. ${EXTRA_FLAGS} --sysroot ..//wasi-sdk/wasm64/wasi-sysroot/
+	${VERBOSE} ${CXX} -fno-exceptions -o static-fn-calls-wasm32.wasm static-fn-calls.cpp --target=wasm32-unknown-wasi ${CFLAGS} -I. ${EXTRA_FLAGS} --sysroot ..//wasi-sdk/wasm32/wasi-sysroot/
+	${VERBOSE} ${CXX} -fno-exceptions -o static-fn-calls-ptr-auth.wasm static-fn-calls.cpp --target=wasm64-unknown-wasi ${CFLAGS} -I. ${EXTRA_FLAGS} --sysroot ..//wasi-sdk/wasm64+ptr-auth/wasi-sysroot/
+	${VERBOSE} ${CXX} -fno-exceptions -o static-fn-calls-all.wasm static-fn-calls.cpp --target=wasm64-unknown-wasi ${CFLAGS} -I. ${EXTRA_FLAGS} --sysroot ..//wasi-sdk/wasm64+memsafe+ptr-auth/wasi-sysroot/
 
 virt-fn-calls: virt-fn-calls.cpp
 	${VERBOSE} ${CXX} -fno-exceptions -o virt-fn-calls-san.wasm virt-fn-calls.cpp --target=wasm64-unknown-wasi ${CFLAGS} -I. ${EXTRA_FLAGS} ${SAN_FLAGS} --sysroot ..//wasi-sdk/wasm64+memsafe/wasi-sysroot
