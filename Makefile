@@ -19,7 +19,7 @@ dist-xlarge: $(SUBDIRS)
 
 
 clean: $(SUBCLEAN)
-	rm -rf build wasi-sdk
+	rm -rf build build-xlarge
 
 $(SUBCLEAN): %.clean:
 	$(MAKE) -C $* clean
