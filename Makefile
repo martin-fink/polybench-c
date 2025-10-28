@@ -11,7 +11,11 @@ $(SUBDIRS):
 
 dist: $(SUBDIRS)
 	mkdir -p build
-	find -not -path "./build/*" -name '*.wasm' | xargs -I '{}' cp '{}' build/
+	find -not -path "./build*/*" -name '*.wasm' | xargs -I '{}' cp '{}' build/
+
+dist-xlarge: $(SUBDIRS)
+	mkdir -p build-xlarge
+	find -not -path "./build*/*" -name '*.wasm' | xargs -I '{}' cp '{}' build-xlarge/
 
 
 clean: $(SUBCLEAN)
